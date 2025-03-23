@@ -8,8 +8,7 @@ const CandidateSearch = () => {
   const [candidate, setCandidate] = useState<Candidate | null>(null);
   const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   //function to fetch candidates from the API
   useEffect(() => {
@@ -17,38 +16,79 @@ const CandidateSearch = () => {
       try {
         const data = await searchGithub();
         setCandidates(data);
-        
+
         //get the first candidates information
         if (data.length > 0) {
           const loggedData = await searchGithubUser(data[0].login);
           setCandidate(loggedData);
         }
-        searchGithubUser('octocat');
-        setCandidate(data);
       } catch (error) {
-        setError(error);
+        setError('Error fetching candidates. Please try again later.');
+        console.error(error);
       }
-      setLoading(false);
     };
+
+
+    // Retrieve saved candidates from local storage
+    const savedCandidatesInStorage = localStorage.getItem('savedCandidates');
+    if (savedCandidatesInStorage) {
+      setSavedCandidates(JSON.parse(savedCandidatesInStorage));
+    }
     fetchData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  if (!candidate) return <p>No candidate found</p>;
-  if (candidate) {
-    return (
-      <div>
-        <h1>CCandidateSearch</h1>
-        <p>Name: {candidate.name}</p>
-        <p>Username: {candidate.login}</p>
-        <p>Location: {candidate.location}</p>
-        <img src={candidate.avatar_url} alt="Avatar" />
-        <p>Email: {candidate.email}</p>
-        <p>Profile URL: <a href={candidate.html_url}>{candidate.html_url}</a></p>
-        <p>Company: {candidate.company}</p>
-      </div>
-    );
+  // function to save candidate 
+  const handleSaveCandidate = async () => {
+    if (candidate) {
+      const updatedSavedCandidates = [...savedCandidates, candidate];
+      setSavedCandidates(updatedSavedCandidates);
+      localStorage.setItem('savedCandidates', JSON.stringify(updatedSavedCandidates));
+      alert('Candidate saved successfully!');
+      loadNext();
+    }
   };
-}
+  //function to skip candidate
+  const handleSkipCandidate = () => {
+    loadNext();
+  };
+  //function to load next candidate
+  const loadNext = async () => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < candidates.length) {
+      const nextCandidate = await searchGithubUser(candidates[nextIndex].login);
+      setCandidate(nextCandidate);
+      setCurrentIndex(nextIndex);
+    } else {
+      setCandidate(null);
+      alert('No more candidates to display.');
+    }
+  };
+  // Render the candidate search page
+  return (
+    <div>
+      <h1>Candidate Search</h1>
+      {error && <p>{error}</p>}
+      {candidate ? (
+        <div className="candidate">
+          <img src={candidate.avatar || 'null'} alt={`${candidate.name || 'null'}'s avatar`} />
+          <h2>{candidate.name}</h2>
+            <p>Name: {candidate.name || 'null'}</p>
+            <p>Username: {candidate.login || 'null'}</p>
+            <p>Location: {candidate.location || 'null'}</p>
+            <p>Email: {candidate.email || 'null'}</p>
+            <a href={candidate.html_url}>GitHub Profile</a>
+            <p>Company: {candidate.company || 'null'}</p>
+            <p>Profile: <a href={candidate.html_url || '#'}>{candidate.html_url || 'null'}</a></p>
+          <div className="candidate-buttons">
+            <button onClick={handleSaveCandidate}>Save Candidate</button>
+            <button onClick={handleSkipCandidate}>Skip Candidate</button>
+          </div>
+        </div>
+      ) : (
+        <p>No candidate information available.</p>
+      )}
+    </div>
+  );
+};
+
 export default CandidateSearch;

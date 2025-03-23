@@ -7,5 +7,6 @@ interface Candidate {
     email: string;
     html_url: string;
     company: string;
+    login: string;
 }
 export default Candidate;
