@@ -63,11 +63,15 @@ const CandidateSearch = () => {
       alert('No more candidates to display.');
     }
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   // Render the candidate search page
   return (
     <div>
       <h1>Candidate Search</h1>
-      {error && <p>{error}</p>}
       {candidate ? (
         <div className="candidate">
           <img src={candidate.avatar || 'null'} alt={`${candidate.name || 'null'}'s avatar`} />

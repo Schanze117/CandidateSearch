@@ -12,7 +12,7 @@ const SavedCandidates = () => {
       setSavedCandidates(JSON.parse(savedCandidatesInStorage));
     }
   }
-  , []);
+    , []);
 
   // Delete candidate from saved candidates
   const handleDeleteCandidate = (index: number) => {
@@ -58,14 +58,16 @@ const SavedCandidates = () => {
     <>
       <h1>Potential Candidates</h1>
       {savedCandidates.length > 0 ? (
-        <table className= "candidate-table">
+        <table className="candidate-table">
           <thead>
             <tr>
               <th>Image</th>
-                <th onClick={handleSortByName} style={{ cursor: 'pointer' }}>
-                  Name {isSortedAscending ? '':''}</th>
+              <th onClick={handleSortByName} style={{ cursor: 'pointer' }}>
+                Name {isSortedAscending ? '' : ''}
+              </th>
               <th onClick={handleSortByUser} style={{ cursor: 'pointer' }}>
-                User Name {isUserSorted ? '':''}</th>
+                User Name {isUserSorted ? '' : ''}
+              </th>
               <th>Location</th>
               <th>Company</th>
               <th>Profile</th>
@@ -77,21 +79,45 @@ const SavedCandidates = () => {
             {savedCandidates.map((Candidate, index) => (
               <tr key={index}>
                 <td>
-                <div className= 'flex-container'>
-                  <img src= {Candidate.avatar} alt={`${Candidate.name || 'null'}'s avatar`} />
-                </div>
-                  </td>
-                <td>{candidate.userName}</td>
-                <td>{candidate.location}</td>
-                <td>{candidate.company}</td>
-                <td><button onClick={() => handleDeleteCandidate(index)}>Delete</button></td>
+                  <div className='flex-container'>
+                    <img src={Candidate.avatar} alt={`${Candidate.name || 'null'}'s avatar`} className='img' />
+                  </div>
+                </td>
+                <td>
+                  <div className='flex-container'> {Candidate.userName || 'null'}</div>
+                </td>
+                <td>
+                  <div className='flex-container'> {Candidate.name || 'null'}</div>
+                </td>
+                <td>
+                  <div className='flex-container'> {Candidate.location || 'null'}</div>
+                </td>
+                <td>
+                  <div className='flex-container'> {Candidate.email || 'null'}</div>
+                </td>
+                <td>
+                  <div className='flex-container'> {Candidate.company || 'null'}</div>
+                </td>
+                <td>
+                  <div className='flex-container'>
+                    <a href={Candidate.html_url || '#'} target='_blank' rel="noopener noreferrer">
+                      {Candidate.html_url || 'null'}
+                    </a>
+                  </div>
+                </td>
+                <td>
+                  <div className='flex-container'>
+                    <button onClick={() => handleDeleteCandidate(index)} className='orange'>Delete</button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-        }
+      ) : (
+        <p>No saved candidates found.</p>
+      )}
     </>
   );
 };
-
 export default SavedCandidates;
