@@ -74,7 +74,7 @@ const CandidateSearch = () => {
       <h1>Candidate Search</h1>
       {candidate ? (
         <div className="candidate">
-          <img src={candidate.avatar || 'null'} alt={`${candidate.name || 'null'}'s avatar`} />
+          <img src={candidate.avatar_url || 'null'} alt={`${candidate.name || 'null'}'s avatar`} />
           <h2>{candidate.name}</h2>
             <p>Name: {candidate.name || 'null'}</p>
             <p>Username: {candidate.login || 'null'}</p>

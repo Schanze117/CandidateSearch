@@ -3,7 +3,7 @@ interface Candidate {
     name: string;
     userName: string;
     location: string;
-    avatar: string;
+    avatar_url: string;
     email: string;
     html_url: string;
     company: string;
