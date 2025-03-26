@@ -107,7 +107,7 @@ const SavedCandidates = () => {
                 </td>
                 <td>
                   <div className='flex-container'>
-                    <button onClick={() => handleDeleteCandidate(index)} className='orange'>Delete</button>
+                    <button onClick={() => handleDeleteCandidate(index)} className='red'>-</button>
                   </div>
                 </td>
               </tr>

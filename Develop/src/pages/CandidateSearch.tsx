@@ -84,8 +84,8 @@ const CandidateSearch = () => {
             <p>Company: {candidate.company || 'null'}</p>
             <p>Profile: <a href={candidate.html_url || '#'}>{candidate.html_url || 'null'}</a></p>
           <div className="candidate-buttons">
-            <button onClick={handleSaveCandidate}>Save Candidate</button>
-            <button onClick={handleSkipCandidate}>Skip Candidate</button>
+            <button onClick={handleSaveCandidate} className='green'>+</button>
+            <button onClick={handleSkipCandidate} className='red'>-</button>
           </div>
         </div>
       ) : (
