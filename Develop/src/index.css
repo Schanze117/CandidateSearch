@@ -12,11 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --primary-color: #1e90ff; /* Blue */
-  --secondary-color: #32cd32; /* Green */
-  --background-color: #f0f0f0; /* Light Grey */
-  --text-color: #333333; /* Dark Grey */
-  --hover-color: #1c7ed6; /* Darker Blue */
+  --primary-color: #2a6f97; /* Muted Blue */
+  --secondary-color: #519e8a; /* Soft Green */
+  --background-color: #eaeaea; /* Light Grey */
+  --text-color: #2f3e46; /* Dark Grey */
+  --hover-color: #1b4965; /* Darker Blue */
 }
 
 a {
