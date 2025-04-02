@@ -6,56 +6,69 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --primary-color: #1e90ff; /* Blue */
+  --secondary-color: #32cd32; /* Green */
+  --background-color: #f0f0f0; /* Light Grey */
+  --text-color: #333333; /* Dark Grey */
+  --hover-color: #1c7ed6; /* Darker Blue */
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--primary-color);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--hover-color);
 }
 
 body {
   background: linear-gradient(
     180deg,
-    rgb(32, 44, 136) 0%,
-    rgba(9, 9, 121, 1) 15%,
-    rgba(0, 2, 18, 1) 100%
+    var(--primary-color) 0%,
+    var(--secondary-color) 50%,
+    var(--background-color) 100%
   );
   background-size: cover;
-  background-repeat: no-repeat no-repeat;
+  background-repeat: no-repeat;
   background-position: center center;
   margin: 0;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+  color: var(--text-color);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: var(--primary-color);
 }
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid var(--primary-color);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--secondary-color);
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s, border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
 }
 button:focus,
 button:focus-visible {
@@ -64,40 +77,48 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--text-color);
+    background-color: var(--background-color);
   }
   a:hover {
-    color: #747bff;
+    color: var(--hover-color);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--primary-color);
+    color: #fff;
   }
 }
 
 main {
-  color: #fff;
+  color: var(--text-color);
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--background-color);
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 tr {
   border-radius: 10px;
-  background-color: #000;
+  background-color: var(--primary-color);
   color: white;
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #333333;
+  background-color: var(--secondary-color);
 }
 
 .nav {
   display: flex;
   justify-content: flex-start;
   padding: 1em 2em;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item {
@@ -108,13 +129,38 @@ tbody tr:nth-child(odd) {
 .nav-link {
   color: #fff;
   text-decoration: none;
+  font-weight: 500;
+}
+.nav-link:hover {
+  color: var(--hover-color);
 }
 
 .active {
   font-weight: 700;
+  color: var(--secondary-color);
 }
 
 .table {
   width: 80vw;
   table-layout: fixed;
+  border-collapse: collapse;
+  margin: 2em 0;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.table th,
+.table td {
+  padding: 1em;
+  text-align: left;
+  border-bottom: 1px solid var(--background-color);
+}
+.table th {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.table tr:hover {
+  background-color: var(--secondary-color);
+  color: #fff;
 }
